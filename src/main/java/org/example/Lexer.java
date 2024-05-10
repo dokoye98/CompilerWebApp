@@ -1,33 +1,44 @@
 package org.example;
 
+import org.example.compilerFunctions.Token;
+import org.example.compilerFunctions.TokenCheck;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Lexer {
 
-    private final String input;
-    private final List<String> letters;
-    private int place;
+    private  String input;
+    private  List<Token> tokens ;
+
     public Lexer(String input) {
         this.input = input;
-        this.letters = new ArrayList<>();
-        this.place = 0;
+        this.tokens = new ArrayList<>();
     }
-    public List<String> splitter(){
-        while(place < input.length()){
-            char let = input.charAt(place);
-            if(Character.isSpaceChar(let)){
-                place++;
-            }else{
-                int tokplace = place;
-                while(place < input.length() && !Character.isSpaceChar(input.charAt(place))){
-                    place++;
-                }
-                String token = input.substring(tokplace,place);
-                letters.add(token);
-            }
-        }
-        return letters;
 
-    }
+public void splitter(){
+    String[] words = input.split("\\s+",2);
+
+        boolean flag = false;
+        for (TokenCheck type : TokenCheck.values()) {
+            if (words[0].equals(type.getKeyword())) {
+                tokens.add(new Token(type, words[0]));
+                flag = true;
+                break;
+                }
+            }
+        if(flag && words.length > 1){
+            tokens.add(new Token(TokenCheck.LITERAL,words[1]));
+        } else if (!flag) {
+            tokens.add(new Token(TokenCheck.UNKNOWN,"Unkown command: "+ words[0]));
+
+        }
+
+}
+public  List<Token> getTokens(){
+
+        return tokens;
+}
+
+
 }
