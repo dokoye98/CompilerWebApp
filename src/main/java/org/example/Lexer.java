@@ -22,7 +22,7 @@ public void splitter(){
         boolean flag = false;
         for (TokenCheck type : TokenCheck.values()) {
             if (words[0].equals(type.getKeyword())) {
-                tokens.add(new Token(type, words[0]));
+                tokens.add(new Token(type, String.valueOf(type)));
                 flag = true;
                 break;
                 }
@@ -39,6 +39,4 @@ public  List<Token> getTokens(){
 
         return tokens;
 }
-
-
 }

@@ -5,7 +5,8 @@ public enum TokenCheck {
     PRINT("print"),
     UNKNOWN("unkown"),
     LITERAL("literal"),
-    VAR("var");
+    INVALID("invalid"),
+    NUM("num");
 
 private final String function;
     TokenCheck(String function) {
